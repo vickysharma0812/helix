@@ -1,0 +1,88 @@
+use-grammars = { only = ["fortran", "toml", "markdown", "scheme"] }
+
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+max_completion_items = 100           # set max completion results len for each group: words, snippets, unicode-input
+feature_words = true                 # enable completion by word
+feature_snippets = true              # enable snippets
+snippets_first = true                # completions will return before snippets by default
+snippets_inline_by_word_tail = false # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
+feature_unicode_input = false        # enable "unicode input"
+feature_paths = true                # enable path completion
+feature_citations = false            # enable citation completion (only on `citation` feature enabled)
+
+# write logs to /tmp/completion.log
+[language-server.scls.environment]
+RUST_LOG = "info,simple-completion-language-server=info"
+LOG_FILE = "/tmp/completion.log"
+
+[language-server.fortls]
+command = "fortls"
+args = [
+  "--lowercase_intrinsics",
+  "--notify_init",
+  "--source_dirs",
+  "/Users/easifem/Dropbox/easifem/base/src/**",
+  "/Users/easifem/Dropbox/easifem/classes/src/**",
+  "/Users/easifem/.easifem/easifem/src/tomlf/src/**",
+  "--hover_signature",
+  "--hover_language",
+  "fortran",
+  "--use_signature_help",
+]
+
+[[language]]
+name = "fortran"
+grammar = "fortran"
+language-servers = ["fortls", "scls"]
+scope = "source.fortran"
+injection-regex = "fortran"
+file-types = ["f90", "f95", "f03", "F90"]
+comment-token = "!"
+indent = { tab-width = 2, unit = "  " }
+auto-format = true
+roots = ["fpm.toml", ".fortls", ".git", "CMakeLists.txt"]
+formatter = { command = "fprettify", args = [
+  "--case",
+  "2",
+  "2",
+  "2",
+  "2",
+  "--line-length",
+  "78",
+  "--indent",
+  "2",
+  "--strict-indent",
+  "--disable-indent-mod",
+  "--whitespace",
+  "2",
+  "--whitespace-comma",
+  "--whitespace-assignment",
+  "--enable-decl",
+  "--whitespace-decl",
+  "--whitespace-relational",
+  "--whitespace-logical",
+  "--whitespace-multdiv",
+  "--whitespace-print",
+  "--whitespace-intrinsics",
+  "--strip-comments",
+] }
+
+[[grammar]]
+name = "fortran"
+source = {git = "https://github.com/stadelmanma/tree-sitter-fortran", rev = "e0132896b8959c09dc20b56e4a1c5d25bc341697"}
+
+[[language]]
+name = "git-commit"
+language-servers = ["scls"]
+
+[[language]]
+name = "rust"
+
+[[language]]
+name = "toml"
+
+[[language]]
+name = "scheme"
