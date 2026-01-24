@@ -1,52 +1,58 @@
-use-grammars = { only = ["fortran", "toml", "markdown", "scheme"] }
+use-grammars = { only = ["fortran", "toml", "markdown", "scheme", "cmake"] }
 
 [language-server.scls]
 command = "simple-completion-language-server"
 
 [language-server.scls.config]
-max_completion_items = 100           # set max completion results len for each group: words, snippets, unicode-input
-feature_words = true                 # enable completion by word
-feature_snippets = true              # enable snippets
-snippets_first = true                # completions will return before snippets by default
-snippets_inline_by_word_tail = false # suggest snippets by WORD tail, for example text `xsq|` become `x^2|` when snippet `sq` has body `^2`
-feature_unicode_input = false        # enable "unicode input"
-feature_paths = true                 # enable path completion
-feature_citations = false            # enable citation completion (only on `citation` feature enabled)
+feature_words = true
+feature_snippets = true
+snippets_first = true
+snippets_inline_by_word_tail = false
+feature_unicode_input = false
+feature_paths = true
+feature_citations = false
 
-# write logs to /tmp/completion.log
 [language-server.scls.environment]
 RUST_LOG = "info,simple-completion-language-server=info"
 LOG_FILE = "/tmp/completion.log"
 
-[language-server.fortitude]
-command = "fortitude"
-args = [
+[language-server]
+fortls = { command = "fortls", args = [
+  "--nthreads",
+  "10",
+  "--lowercase_intrinsics",
+  "--hover_signature",
+  "--hover_language",
+  "fortran",
+  "--use_signature_help",
+  "--incremental_sync",
+  "--recursion_limit",
+  "1000",
+  "--source_dirs",
+  "/Users/easifem/Dropbox/easifem/base/src/**",
+  "/Users/easifem/Dropbox/easifem/classes/src/**",
+  "/Users/easifem/.easifem/easifem/src/tomlf/src/**",
+] }
+
+efm = { command = "efm-langserver" }
+
+fortitude = { command = "fortitude", args = [
   "check",
   "--output-format",
   "json",
   "--ignore",
   "superfluous-implicit-none,implicit-external-procedures,interface-implicit-typing",
-]
-
-[language-server.fortls]
-command = "fortls"
-args = [
-  "--lowercase_intrinsics",
-  "--notify_init",
-  "--source_dirs",
-  "/Users/easifem/Dropbox/easifem/base/src/**",
-  "/Users/easifem/Dropbox/easifem/classes/src/**",
-  "/Users/easifem/.easifem/easifem/src/tomlf/src/**",
-  "--hover_signature",
-  "--hover_language",
-  "fortran",
-  "--use_signature_help",
-]
+] }
 
 [[language]]
 name = "fortran"
 grammar = "fortran"
-language-servers = ["fortls", "scls", "fortitude"]
+language-servers = [
+  { name = "efm", only-features = ["diagnostics"] },
+  "fortls",
+  "scls",
+  "fortitude",
+]
 scope = "source.fortran"
 injection-regex = "fortran"
 file-types = ["f90", "f95", "f03", "F90"]
@@ -80,9 +86,8 @@ formatter = { command = "fprettify", args = [
   "--strip-comments",
 ] }
 
-[[grammar]]
-name = "fortran"
-source = { git = "https://github.com/stadelmanma/tree-sitter-fortran", rev = "e0132896b8959c09dc20b56e4a1c5d25bc341697" }
+[[language]]
+name = "cmake"
 
 [[language]]
 name = "git-commit"
@@ -96,3 +101,11 @@ name = "toml"
 
 [[language]]
 name = "scheme"
+
+[[grammar]]
+name = "fortran"
+source = { git = "https://github.com/vickysharma0812/tree-sitter-fortran", rev = "3f5f2e338b5edc17b01b64670ba11ded30798053" }
+
+[[grammar]]
+name = "cmake"
+
