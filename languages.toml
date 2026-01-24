@@ -35,6 +35,8 @@ fortls = { command = "fortls", args = [
 ] }
 
 efm = { command = "efm-langserver" }
+cmake-language-server = { command = "cmake-language-server" }
+neocmakelsp = { command = "neocmakelsp", args = ["stdio"] }
 
 fortitude = { command = "fortitude", args = [
   "check",
@@ -48,7 +50,9 @@ fortitude = { command = "fortitude", args = [
 name = "fortran"
 grammar = "fortran"
 language-servers = [
-  { name = "efm", only-features = ["diagnostics"] },
+  { name = "efm", only-features = [
+    "diagnostics",
+  ] },
   "fortls",
   "scls",
   "fortitude",
@@ -88,6 +92,15 @@ formatter = { command = "fprettify", args = [
 
 [[language]]
 name = "cmake"
+scope = "source.cmake"
+file-types = ["cmake", { glob = "CMakeLists.txt" }]
+comment-token = "#"
+block-comment-tokens = { start = "#[[", end = "]]" }
+indent = { tab-width = 2, unit = "  " }
+language-servers = ["neocmakelsp", "cmake-language-server"]
+injection-regex = "cmake"
+formatter = { command = "gersemi", args = ["--quiet", "-"] }
+auto-format = true
 
 [[language]]
 name = "git-commit"
@@ -98,6 +111,8 @@ name = "rust"
 
 [[language]]
 name = "toml"
+auto-format = true
+language-servers = ["tombi"]
 
 [[language]]
 name = "scheme"
@@ -108,4 +123,4 @@ source = { git = "https://github.com/vickysharma0812/tree-sitter-fortran", rev =
 
 [[grammar]]
 name = "cmake"
-
+source = { git = "https://github.com/uyha/tree-sitter-cmake", rev = "c7b2a71e7f8ecb167fad4c97227c838439280175" }
