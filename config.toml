@@ -54,31 +54,53 @@ hidden = false
 enable = true
 
 [editor.inline-diagnostics]
-cursor-line = "warning" # show warnings and errors on the cursorline inline
+cursor-line = "warning"  # show warnings and errors on the cursorline inline
 
 [keys.normal]
-tab = "move_parent_node_end" # related to smart-tab
-S-tab = "move_parent_node_start" # related to smart-tab
+C-s = ":write"
+tab = "move_parent_node_end"  # related to smart-tab
+S-tab = "move_parent_node_start"  # related to smart-tab
+C-p = [
+  ":sh rm -f /tmp/unique-file",
+  ":insert-output yazi $easifem --chooser-file=/tmp/unique-file",
+  ':sh printf "\x1b[?1049h\x1b[?2004h" > /dev/tty',
+  ":open %sh{cat /tmp/unique-file}",
+  ":redraw",
+]
 
 [keys.normal.space]
 e = [
-  ':sh rm -f /tmp/unique-file',
-  ':insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file',
+  ":sh rm -f /tmp/unique-file",
+  ":insert-output yazi %{buffer_name} --chooser-file=/tmp/unique-file",
   ':insert-output echo "\x1b[?1049h\x1b[?2004h" > /dev/tty',
-  ':open %sh{cat /tmp/unique-file}',
-  ':redraw',
+  ":open %sh{cat /tmp/unique-file}",
+  ":redraw",
 ]
+"," = "buffer_picker"
 
 [keys.normal.space.b]
-b = "buffer_picker"
+b = "goto_last_accessed_file"
 d = ":buffer-close"
 D = ":buffer-close-others"
 n = ":buffer-next"
 p = ":buffer-previous"
 
+# build easifem
+[keys.normal."+"]
+# b = [":run-shell-command easifem dev base -q", ":run-shell-command easifem install base -q --no-download"]
+# c= [":run-shell-command easifem dev classes -q", ":run-shell-command easifem install classes -q --no-download"]
+b = ":echo %sh{~/.config/tmux/scripts/buildBase.sh}"
+c = ":echo %sh{~/.config/tmux/scripts/buildClasses.sh}"
+"+" = [
+  "goto_file_end",
+  ":append-output ~/.config/helix/scripts/easifemRunTest.sh %{buffer_name}"
+]
+
 [keys.insert]
-S-tab = "move_parent_node_start" # related to smart-tab
-"S-ret" = ["open_below", "insert_mode"] # Maps the enter key to open_below then re-enter normal mode
+C-s = ":write"
+S-tab = "move_parent_node_start"  # related to smart-tab
+"A-x" = "normal_mode"  # Maps Alt-X to enter normal mode
+j = { k = "normal_mode" }  # Maps `jk` to exit insert mode
 
 [keys.select]
 tab = "extend_parent_node_end"
