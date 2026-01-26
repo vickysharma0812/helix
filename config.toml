@@ -57,7 +57,6 @@ enable = true
 cursor-line = "warning"  # show warnings and errors on the cursorline inline
 
 [keys.normal]
-C-s = ":write"
 tab = "move_parent_node_end"  # related to smart-tab
 S-tab = "move_parent_node_start"  # related to smart-tab
 C-p = [
@@ -95,6 +94,7 @@ c = ":echo %sh{~/.config/tmux/scripts/buildClasses.sh}"
   "goto_file_end",
   ":append-output ~/.config/helix/scripts/easifemRunTest.sh %{buffer_name}"
 ]
+g = ":sh tmux display-popup -E -w 95%% -h 95%% -d '#{pane_current_path}' lazygit"
 
 [keys.insert]
 C-s = ":write"

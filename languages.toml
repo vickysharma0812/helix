@@ -1,21 +1,5 @@
 use-grammars = { only = ["fortran", "toml", "markdown", "scheme", "cmake"] }
 
-[language-server.scls]
-command = "simple-completion-language-server"
-
-[language-server.scls.config]
-feature_words = true
-feature_snippets = true
-snippets_first = true
-snippets_inline_by_word_tail = false
-feature_unicode_input = false
-feature_paths = true
-feature_citations = false
-
-[language-server.scls.environment]
-RUST_LOG = "info,simple-completion-language-server=info"
-LOG_FILE = "/tmp/completion.log"
-
 [language-server]
 fortls = { command = "fortls", args = [
   "--nthreads",
@@ -33,11 +17,9 @@ fortls = { command = "fortls", args = [
   "/Users/easifem/Dropbox/easifem/classes/src/**",
   "/Users/easifem/.easifem/easifem/src/tomlf/src/**",
 ] }
-
 efm = { command = "efm-langserver" }
 cmake-language-server = { command = "cmake-language-server" }
 neocmakelsp = { command = "neocmakelsp", args = ["stdio"] }
-
 fortitude = { command = "fortitude", args = [
   "check",
   "--output-format",
@@ -45,6 +27,22 @@ fortitude = { command = "fortitude", args = [
   "--ignore",
   "superfluous-implicit-none,implicit-external-procedures,interface-implicit-typing",
 ] }
+
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+feature_words = true
+feature_snippets = true
+snippets_first = true
+snippets_inline_by_word_tail = false
+feature_unicode_input = false
+feature_paths = true
+feature_citations = false
+
+[language-server.scls.environment]
+RUST_LOG = "info,simple-completion-language-server=info"
+LOG_FILE = "/tmp/completion.log"
 
 [[language]]
 name = "fortran"
@@ -64,6 +62,7 @@ comment-token = "!"
 indent = { tab-width = 2, unit = "  " }
 auto-format = true
 roots = ["fpm.toml", ".fortls", ".git", "CMakeLists.txt"]
+rulers = [78, 80]
 formatter = { command = "fprettify", args = [
   "--case",
   "2",
