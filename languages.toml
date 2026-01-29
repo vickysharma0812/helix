@@ -27,6 +27,7 @@ fortitude = { command = "fortitude", args = [
   "--ignore",
   "superfluous-implicit-none,implicit-external-procedures,interface-implicit-typing",
 ] }
+iwe = { command = "iwes" }
 
 [language-server.scls]
 command = "simple-completion-language-server"
@@ -119,6 +120,8 @@ name = "scheme"
 [[language]]
 name = "markdown"
 soft-wrap.enable = true
+auto-format = true
+language-servers = ["iwe", "marksman"]
 
 [[language]]
 name = "markdown.inline"
