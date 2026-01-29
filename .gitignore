@@ -1,2 +1,6 @@
-runtime
 .DS_Store
+# Ignore the entire runtime directory
+runtime/
+
+# Un-ignore the queries directory inside runtime
+!runtime/queries/

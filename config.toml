@@ -2,24 +2,25 @@ theme = "catppuccin_mocha"
 
 [editor]
 auto-completion = true
-auto-pairs = true
-auto-save = true
 auto-format = true
 auto-info = true
+auto-pairs = true
+auto-save = true
 color-modes = true
 completion-trigger-len = 2
-cursorline = true
 continue-comments = true
+cursorline = true
+default-yank-register = "+"
+end-of-line-diagnostics = "warning"
 gutters = ["diff", "diagnostics", "line-numbers", "spacer"]
 line-number = "relative"
 mouse = true
-popup-border = "all"
 path-completion = true
+popup-border = "all"
 scroll-lines = 3
 scrolloff = 5
 shell = ["fish", "-c"]
 true-color = true
-end-of-line-diagnostics = "hint"
 
 [editor.statusline]
 left = [
@@ -59,13 +60,6 @@ cursor-line = "warning"  # show warnings and errors on the cursorline inline
 [keys.normal]
 tab = "move_parent_node_end"  # related to smart-tab
 S-tab = "move_parent_node_start"  # related to smart-tab
-C-p = [
-  ":sh rm -f /tmp/unique-file",
-  ":insert-output yazi $easifem --chooser-file=/tmp/unique-file",
-  ':sh printf "\x1b[?1049h\x1b[?2004h" > /dev/tty',
-  ":open %sh{cat /tmp/unique-file}",
-  ":redraw",
-]
 
 [keys.normal.space]
 e = [
@@ -99,7 +93,6 @@ g = ":sh tmux display-popup -E -w 95%% -h 95%% -d '#{pane_current_path}' lazygit
 [keys.insert]
 C-s = ":write"
 S-tab = "move_parent_node_start"  # related to smart-tab
-"A-x" = "normal_mode"  # Maps Alt-X to enter normal mode
 j = { k = "normal_mode" }  # Maps `jk` to exit insert mode
 
 [keys.select]

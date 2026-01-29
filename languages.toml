@@ -116,6 +116,17 @@ language-servers = ["tombi"]
 [[language]]
 name = "scheme"
 
+[[language]]
+name = "markdown"
+soft-wrap.enable = true
+
+[[language]]
+name = "markdown.inline"
+scope = "source.markdown.inline"
+injection-regex = "markdown\\.inline"
+file-types = []
+grammar = "markdown_inline"
+
 [[grammar]]
 name = "fortran"
 source = { git = "https://github.com/vickysharma0812/tree-sitter-fortran", rev = "3f5f2e338b5edc17b01b64670ba11ded30798053" }
@@ -123,3 +134,11 @@ source = { git = "https://github.com/vickysharma0812/tree-sitter-fortran", rev =
 [[grammar]]
 name = "cmake"
 source = { git = "https://github.com/uyha/tree-sitter-cmake", rev = "c7b2a71e7f8ecb167fad4c97227c838439280175" }
+
+[[grammar]]
+name = "markdown"
+source = { git = "https://github.com/tree-sitter-grammars/tree-sitter-markdown", rev = "62516e8c78380e3b51d5b55727995d2c511436d8", subpath = "tree-sitter-markdown" }
+
+[[grammar]]
+name = "markdown_inline"
+source = { git = "https://github.com/tree-sitter-grammars/tree-sitter-markdown", rev = "62516e8c78380e3b51d5b55727995d2c511436d8", subpath = "tree-sitter-markdown-inline" }
