@@ -7,7 +7,7 @@ auto-info = true
 auto-pairs = true
 auto-save = true
 color-modes = true
-completion-trigger-len = 2
+completion-trigger-len = 1
 continue-comments = true
 cursorline = true
 default-yank-register = "+"
@@ -21,16 +21,18 @@ scroll-lines = 3
 scrolloff = 5
 shell = ["fish", "-c"]
 true-color = true
+clipboard-provider = "pasteboard"
 
 [editor.statusline]
 left = [
   "mode",
   "spinner",
-  "file-name",
+  "file-base-name",
+  "version-control",
   "read-only-indicator",
   "file-modification-indicator",
 ]
-center = []
+center = ["position-percentage"]
 right = ["diagnostics", "selections", "register", "position", "file-encoding"]
 mode.normal = "N"
 mode.insert = "I"
@@ -39,6 +41,10 @@ mode.select = "S"
 [editor.lsp]
 enable = true
 display-inlay-hints = true
+goto-reference-include-declaration = true
+auto-signature-help = true
+display-signature-help-docs = true
+snippets = true
 
 [editor.cursor-shape]
 insert = "bar"
@@ -55,11 +61,14 @@ hidden = false
 enable = true
 
 [editor.inline-diagnostics]
-cursor-line = "warning"  # show warnings and errors on the cursorline inline
+cursor-line = "warning" # show warnings and errors on the cursorline inline
 
 [keys.normal]
-tab = "move_parent_node_end"  # related to smart-tab
-S-tab = "move_parent_node_start"  # related to smart-tab
+tab = "move_parent_node_end"     # related to smart-tab
+S-tab = "move_parent_node_start" # related to smart-tab
+"`" = "switch_to_uppercase"
+"A-`" = "switch_to_lowercase"
+C-s = [":format", ":write"]
 
 [keys.normal.space]
 e = [
@@ -70,13 +79,22 @@ e = [
   ":redraw",
 ]
 "," = "buffer_picker"
+esc = ":config-reload"
+
+[keys.normal.space.i]
+d = ":append-output date +%%Y-%%m-%%d"
 
 [keys.normal.space.b]
-b = "goto_last_accessed_file"
-d = ":buffer-close"
-D = ":buffer-close-others"
-n = ":buffer-next"
-p = ":buffer-previous"
+q = ":buffer-close"
+Q = ":buffer-close!"
+
+[keys.normal."]"]
+b = ":buffer-next"
+w = "jump_view_right"
+
+[keys.normal."["]
+b = ":buffer-previous"
+w = "jump_view_left"
 
 # build easifem
 [keys.normal."+"]
@@ -86,15 +104,17 @@ b = ":echo %sh{~/.config/tmux/scripts/buildBase.sh}"
 c = ":echo %sh{~/.config/tmux/scripts/buildClasses.sh}"
 "+" = [
   "goto_file_end",
-  ":append-output ~/.config/helix/scripts/easifemRunTest.sh %{buffer_name}"
+  ":append-output ~/.config/helix/scripts/easifemRunTest.sh %{buffer_name}",
 ]
 g = ":sh tmux display-popup -E -w 95%% -h 95%% -d '#{pane_current_path}' lazygit"
 
 [keys.insert]
-C-s = ":write"
-S-tab = "move_parent_node_start"  # related to smart-tab
-j = { k = "normal_mode" }  # Maps `jk` to exit insert mode
+C-s = [":format", ":write"]
+S-tab = "move_parent_node_start"
+# related to smart-tab
 
 [keys.select]
 tab = "extend_parent_node_end"
 S-tab = "extend_parent_node_start"
+"`" = "switch_to_uppercase"
+"A-`" = "switch_to_lowercase"

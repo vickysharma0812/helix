@@ -6,8 +6,16 @@ git = "https://github.com/rafamadriz/friendly-snippets.git"
 
 [[sources.paths]]
 scope = ["fortran"]
-path = "snippets/fortran.json"
+path = "fortran.json"
+
+[[sources.paths]]
+scope = ["fortran"]
+path = "markdown.json"
 
 [[sources.paths]]
 scope = ["markdown"]
-path = "snippets/markdown.json"
+path = "markdown.json"
+
+[[sources.paths]]
+scope = ["cmake"]
+path = "cmake.json"
