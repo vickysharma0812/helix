@@ -1,4 +1,12 @@
-use-grammars = { only = ["fortran", "toml", "markdown", "scheme", "cmake"] }
+use-grammars = { only = [
+  "fortran",
+  "toml",
+  "markdown",
+  "scheme",
+  "cmake",
+  "latex",
+  "bibtex",
+] }
 
 [language-server]
 fortls = { command = "fortls", args = [
@@ -15,35 +23,74 @@ fortls = { command = "fortls", args = [
   "--source_dirs",
   "/Users/easifem/Dropbox/easifem/base/src/**",
   "/Users/easifem/Dropbox/easifem/classes/src/**",
+  "/Users/easifem/Dropbox/easifem/seepage/src/**",
+  "/Users/easifem/Dropbox/easifem/oneDimElasticity/src/**",
+  "/Users/easifem/Dropbox/easifem/elasticity/src/**",
+  "/Users/easifem/Dropbox/easifem/sdof/src/**",
   "/Users/easifem/.easifem/easifem/src/tomlf/src/**",
 ] }
 efm = { command = "efm-langserver" }
 cmake-language-server = { command = "cmake-language-server" }
 neocmakelsp = { command = "neocmakelsp", args = ["stdio"] }
 
-fortitude = { command = "fortitude", args = [
-  "server",
-], config = { settings = { linelength = 78, logLevel = "debug", check = { select = [
-  "C",
-  "S",
-], ignore = [
-  "superfluous-implicit-none",
-  "implicit-external-procedures",
-  "interface-implicit-typing",
-], preview = false } } } }
-
 iwe = { command = "iwes" }
+
 marksman = { command = "marksman", args = ["server"] }
+
 rumdl = { command = "rumdl", args = ["server"] }
+
 vscode-css-language-server = { command = "vscode-css-language-server", args = [
   "--stdio",
 ], config = { provideFormatter = true, css = { validate = { enable = true } } } }
+
 vscode-html-language-server = { command = "vscode-html-language-server", args = [
   "--stdio",
 ], config = { provideFormatter = true } }
+
 vscode-json-language-server = { command = "vscode-json-language-server", args = [
   "--stdio",
 ], config = { provideFormatter = true, json = { validate = { enable = true } } } }
+
+
+[language-server.fortitude]
+command = "fortitude"
+args = ["server"]
+
+[language-server.fortitude.config.settings]
+linelength = 78
+logLevel = "debug"
+
+[language-server.fortitude.config.settings.check]
+select = ["C", "S"]
+ignore = [
+  "superfluous-implicit-none",
+  "implicit-external-procedures",
+  "interface-implicit-typing",
+  "bad-quote-string",
+]
+preview = false
+
+[language-server.texlab]
+command = "texlab"
+[language-server.texlab.config.texlab]
+build.executable = "latexmk"
+build.args = [
+  "-pdf",
+  "-auxdir=build",
+  "-outdir=.",
+  "-interaction=nonstopmode",
+  "-synctex=1",
+  "%f",
+]
+build.forwardSearchAfter = true
+build.onSave = true
+forwardSearch.executable = "/Applications/Skim.app/Contents/SharedSupport/displayline"
+forwardSearch.args = ["-g", "-r", "%l", "%p", "%f"]
+# texlab.latexFormatter = "latexindent"
+# texlab.latexindent.local = "latexindent.yaml"
+
+[language-server.digestif]
+command = "digestif"
 
 [language-server.scls]
 command = "simple-completion-language-server"
@@ -171,7 +218,7 @@ file-types = [
   { glob = "PULLREQ_EDITMSG" },
 ]
 roots = [".marksman.toml"]
-language-servers = ["iwe", "marksman", "scls"]
+language-servers = ["marksman", "scls", "rumdl"]
 #language-servers = ["iwe", "marksman", "rumdl"]
 indent = { tab-width = 2, unit = "  " }
 block-comment-tokens = { start = "<!--", end = "-->" }
@@ -188,6 +235,49 @@ name = "json"
 
 [[language]]
 name = "html"
+
+[[language]]
+name = "latex"
+scope = "source.tex"
+injection-regex = "tex"
+file-types = ["tex", "dtx", "ins", "sty", "cls", "Rd", "bbx", "cbx"]
+comment-token = "%"
+# language-servers = ["texlab", "scls"]
+language-servers = ["texlab", "digestif", "scls"]
+indent = { tab-width = 2, unit = " " }
+auto-format = true
+# formatter = { command = "latexindent", args = ["-w", "-s"] }
+
+[[language]]
+name = "bibtex"
+scope = "source.bib"
+injection-regex = "bib"
+file-types = ["bib"]
+comment-token = "%"
+language-servers = ["texlab"]
+indent = { tab-width = 4, unit = "\t" }
+auto-format = true
+
+[language.formatter]
+command = 'bibtex-tidy'
+args = [
+  "-",
+  "--curly",
+  "--drop-all-caps",
+  "--remove-empty-fields",
+  "--sort-fields",
+  "--sort=year,author,id",
+  "--strip-enclosing-braces",
+  "--trailing-commas",
+]
+
+[[grammar]]
+name = "latex"
+source = { git = "https://github.com/latex-lsp/tree-sitter-latex", rev = "8c75e93cd08ccb7ce1ccab22c1fbd6360e3bcea6" }
+
+[[grammar]]
+name = "bibtex"
+source = { git = "https://github.com/latex-lsp/tree-sitter-bibtex", rev = "8d04ed27b3bc7929f14b7df9236797dab9f3fa66" }
 
 [[grammar]]
 name = "fortran"

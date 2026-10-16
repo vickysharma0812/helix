@@ -22,6 +22,13 @@ scrolloff = 5
 shell = ["fish", "-c"]
 true-color = true
 clipboard-provider = "pasteboard"
+text-width = 80
+
+[editor.soft-wrap]
+enable = true
+max-wrap = 25         # increase value to reduce forced mid-word wrapping
+max-indent-retain = 0
+wrap-indicator = ""   # set wrap-indicator to "" to hide it
 
 [editor.statusline]
 left = [
@@ -117,4 +124,5 @@ S-tab = "move_parent_node_start"
 tab = "extend_parent_node_end"
 S-tab = "extend_parent_node_start"
 "`" = "switch_to_uppercase"
-"A-`" = "switch_to_lowercase"
+"A-`" = "switch_case"
+"~" = "switch_to_lowercase"

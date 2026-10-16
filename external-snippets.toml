@@ -19,3 +19,7 @@ path = "markdown.json"
 [[sources.paths]]
 scope = ["cmake"]
 path = "cmake.json"
+
+[[sources.paths]]
+scope = ["latex"]
+path = "latex.json"
