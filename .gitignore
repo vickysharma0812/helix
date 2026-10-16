@@ -1,6 +1,8 @@
 .DS_Store
 # Ignore the entire runtime directory
-runtime/
+runtime/grammars
+runtime/tutor
 
 # Un-ignore the queries directory inside runtime
-!runtime/queries/
+# !runtime/queries/
+# !runtime/themes/
