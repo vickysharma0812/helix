@@ -6,3 +6,7 @@ runtime/tutor
 # Un-ignore the queries directory inside runtime
 # !runtime/queries/
 # !runtime/themes/
+
+# Backup files
+*.bk
+*.bak
