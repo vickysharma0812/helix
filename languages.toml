@@ -29,8 +29,28 @@ fortls = { command = "fortls", args = [
   "/Users/easifem/Dropbox/easifem/sdof/src/**",
   "/Users/easifem/.easifem/easifem/src/tomlf/src/**",
 ] }
+zfls = { command = "zfls", args = [
+  "--nthreads",
+  "10",
+  "--lowercase_intrinsics",
+  "--hover_signature",
+  "--hover_language",
+  "fortran",
+  "--use_signature_help",
+  "--incremental_sync",
+  "--recursion_limit",
+  "1000",
+  "--source_dirs",
+  "/Users/easifem/Dropbox/easifem/base/src/**",
+  "/Users/easifem/Dropbox/easifem/classes/src/**",
+  "/Users/easifem/Dropbox/easifem/seepage/src/**",
+  "/Users/easifem/Dropbox/easifem/oneDimElasticity/src/**",
+  "/Users/easifem/Dropbox/easifem/elasticity/src/**",
+  "/Users/easifem/Dropbox/easifem/sdof/src/**",
+  "/Users/easifem/.easifem/easifem/src/tomlf/src/**",
+] }
 efm = { command = "efm-langserver" }
-cmake-language-server = { command = "cmake-language-server" }
+# cmake-language-server = { command = "cmake-language-server" }
 neocmakelsp = { command = "neocmakelsp", args = ["stdio"] }
 
 iwe = { command = "iwes" }
@@ -115,7 +135,8 @@ language-servers = [
   { name = "efm", only-features = [
     "diagnostics",
   ] },
-  "fortls",
+  "zfls",
+  # "fortls",
   "scls",
   "fortitude",
 ]
@@ -160,7 +181,8 @@ file-types = ["cmake", { glob = "CMakeLists.txt" }]
 comment-token = "#"
 block-comment-tokens = { start = "#[[", end = "]]" }
 indent = { tab-width = 2, unit = "  " }
-language-servers = ["neocmakelsp", "cmake-language-server", "scls"]
+# language-servers = ["neocmakelsp", "cmake-language-server", "scls"]
+language-servers = ["neocmakelsp", "scls"]
 injection-regex = "cmake"
 formatter = { command = "gersemi", args = ["--quiet", "-"] }
 auto-format = true
