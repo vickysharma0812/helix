@@ -132,9 +132,7 @@ LOG_FILE = "/tmp/completion.log"
 name = "fortran"
 grammar = "fortran"
 language-servers = [
-  { name = "efm", only-features = [
-    "diagnostics",
-  ] },
+  { name = "efm", only-features = ["diagnostics"] },
   "zfls",
   # "fortls",
   "scls",
@@ -148,31 +146,34 @@ indent = { tab-width = 2, unit = "  " }
 auto-format = true
 roots = ["fpm.toml", ".fortls", ".git", "CMakeLists.txt"]
 rulers = [78, 80]
-formatter = { command = "fprettify", args = [
-  "--case",
-  "2",
-  "2",
-  "2",
-  "2",
-  "--line-length",
-  "78",
-  "--indent",
-  "2",
-  "--strict-indent",
-  "--disable-indent-mod",
-  "--whitespace",
-  "2",
-  "--whitespace-comma",
-  "--whitespace-assignment",
-  "--enable-decl",
-  "--whitespace-decl",
-  "--whitespace-relational",
-  "--whitespace-logical",
-  "--whitespace-multdiv",
-  "--whitespace-print",
-  "--whitespace-intrinsics",
-  "--strip-comments",
+formatter = { command = "forformat", args = [
+  "--config=/Users/easifem/.config/forformat/forformat.toml",
 ] }
+# formatter = { command = "fprettify", args = [
+#   "--case",
+#   "2",
+#   "2",
+#   "2",
+#   "2",
+#   "--line-length",
+#   "78",
+#   "--indent",
+#   "2",
+#   "--strict-indent",
+#   "--disable-indent-mod",
+#   "--whitespace",
+#   "2",
+#   "--whitespace-comma",
+#   "--whitespace-assignment",
+#   "--enable-decl",
+#   "--whitespace-decl",
+#   "--whitespace-relational",
+#   "--whitespace-logical",
+#   "--whitespace-multdiv",
+#   "--whitespace-print",
+#   "--whitespace-intrinsics",
+#   "--strip-comments",
+# ] }
 
 [[language]]
 name = "cmake"
