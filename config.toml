@@ -23,6 +23,7 @@ shell = ["fish", "-c"]
 true-color = true
 clipboard-provider = "pasteboard"
 text-width = 80
+trim-trailing-whitespace = true
 
 [editor.soft-wrap]
 enable = true
@@ -75,7 +76,7 @@ tab = "move_parent_node_end"     # related to smart-tab
 S-tab = "move_parent_node_start" # related to smart-tab
 "`" = "switch_to_uppercase"
 "A-`" = "switch_to_lowercase"
-C-s = [":format", ":write"]
+# C-s = [":format", ":write"]
 
 [keys.normal.space]
 e = [
@@ -116,7 +117,7 @@ c = ":echo %sh{~/.config/tmux/scripts/buildClasses.sh}"
 g = ":sh tmux display-popup -E -w 95%% -h 95%% -d '#{pane_current_path}' lazygit"
 
 [keys.insert]
-C-s = [":format", ":write"]
+# C-s = [":format", ":write"]
 S-tab = "move_parent_node_start"
 # related to smart-tab
 
