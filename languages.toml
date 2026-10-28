@@ -76,19 +76,12 @@ vscode-json-language-server = { command = "vscode-json-language-server", args = 
 command = "fortitude"
 args = ["server"]
 
+# Lint rules come from the project's config file (fortitude.toml,
+# .fortitude.toml, [extra.fortitude] in fpm.toml, or pyproject.toml);
+# projects without one get fortitude's defaults.
 [language-server.fortitude.config.settings]
-linelength = 78
+configurationPreference = "filesystemFirst"
 logLevel = "debug"
-
-[language-server.fortitude.config.settings.check]
-select = ["C", "S"]
-ignore = [
-  "superfluous-implicit-none",
-  "implicit-external-procedures",
-  "interface-implicit-typing",
-  "bad-quote-string",
-]
-preview = false
 
 [language-server.texlab]
 command = "texlab"
